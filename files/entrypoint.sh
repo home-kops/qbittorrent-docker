@@ -123,20 +123,7 @@ EOF
 # Refresh virus definitions
 freshclam
 
-# Create auth file
-echo "${OPENVPN_USER}" > /etc/openvpn/auth.txt
-echo "${OPENVPN_PASSWD}" >> /etc/openvpn/auth.txt
-
-exec \
-    openvpn \
-        --config /etc/openvpn/ovpn_udp/es114.nordvpn.com.udp.ovpn \
-        --auth-user-pass /etc/openvpn/auth.txt &
-
 if [ "$isRoot" = "1" ]; then
-    exec \
-        doas -u qbtUser \
-            /opt/Jackett/jackett --NoUpdates --DataFolder="${XDG_CONFIG_HOME}" &
-
     exec \
         doas -u qbtUser \
             qbittorrent-nox \
@@ -145,9 +132,6 @@ if [ "$isRoot" = "1" ]; then
                 --webui-port="$QBT_WEBUI_PORT" \
                 "$@"
 else
-    exec \
-        /opt/Jackett/jackett --NoUpdates --DataFolder="${XDG_CONFIG_HOME}" &
-
     exec \
         qbittorrent-nox \
             "$confirmLegalNotice" \
