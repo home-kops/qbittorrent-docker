@@ -1,4 +1,4 @@
-FROM qbittorrentofficial/qbittorrent-nox:5.1.0-1
+FROM qbittorrentofficial/qbittorrent-nox:5.1.3-1
 
 ENV XDG_CONFIG_HOME="/config"
 
